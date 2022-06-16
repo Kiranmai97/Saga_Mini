@@ -3,9 +3,7 @@ import { Table } from 'react-bootstrap'
 
 const Dashboard = () => {
 
-  // const getUsersData=()={
-  //   c
-  // }
+  
   return (
     <div><Table>
       <thead>
@@ -15,14 +13,14 @@ const Dashboard = () => {
           <th>Email</th>
         </tr>
       </thead>
-      <tbody>
+      {/* <tbody>
         
         <tr>
           <td>{each.firstName}</td>
           <td>{each.lastName}</td>
           <td>{each.Email}</td>
         </tr>
-      </tbody>
+      </tbody> */}
       </Table>
     </div>
   )
