@@ -4,13 +4,18 @@ import {BrowserRouter, Routes,Route} from "react-router-dom"
 import Login  from '../components/Login';
 import Dashboard from '../components/Dashboard';
 import File from '../File';
-import Refer from '../Refer';
+import Users from '../padma';
+import Ruthu from '../Ruthu';
+import Example from '../Example';
+import Actions from '../Rahul';
+import EditUser from '../File_editor';
 
 
 
 
 
-export default function Router() {
+
+ function Router() {
 //  const token= localStorage.getItem('token')
 
     return (
@@ -20,11 +25,17 @@ export default function Router() {
         <Route path="/login" element={<Login/>} /> 
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path = "/file" element = {<File/>}/> 
-        <Route path = "/refer" element = {<Refer/>}/>
+        <Route path="/users" element = {<Users/>}/>
+        <Route path = "/ruthu" element = {<Ruthu/>}/>
+        <Route path = "/example" element = {<Example/>}/>
+        <Route path = "/rahul" element = {<Actions/>}/>
+        <Route path = "/edit" element = {<EditUser/>}/>
+        
           
 
         </Routes>
       </BrowserRouter>
     );
   }
+  export default Router;
  

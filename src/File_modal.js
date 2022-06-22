@@ -1,114 +1,99 @@
 import React, { useState } from 'react';
-import { Form, Col } from 'react-bootstrap';
-import "./File.css";
+import { Button, Modal, Form, Row, Col } from "react-bootstrap";
+
 function AddUser() {
-    const [validated, setValidated] = useState(false);
-    const [data, setData] = ({
-        firstName: '',
-        lastName: '',
+    const [userslist, setUserslist] = useState(
+        {
+            data: []
+        }
+    )
+    const [modal, setModal] = useState({
+        first_name: ' ',
+        last_name: '',
         email: '',
-        profile: '',
-        error: {
-            firstNameerror: '',
-            firstNameMessage: '',
-            lastNameerror: '',
-            lastNameMessage: '',
-            email: '',
-            profile: '',
-        }
-
     })
-    const { error } = data;
-    const handleInput = () => {
-        console.log()
-    }
-    const add = () => {
-        console.log("add the values")
-        const { list } = state;
-        list.push(modal)
-        setState({ ...state, list: list });
-        const obj = {
-
-            first_name: '',
-            last_name: '',
-            email: ''
+    const [show, setShow] = useState(false);
+    const [isAdd, setIsAdd] = useState(true)
+    const [validated, setValidated] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const handleAdd = () => {
+        const { data } = userslist;
+        if (isAdd) {
+            data.push(modal);
+            // setUserslist({ ...userslist, data: data });
+            handleClose();
         }
-        setModal(obj);
-        handleCloseAdd();
+        console.log("Add in table", userslist.data);
+
+
     }
+
+
+
+
+
     const handleSubmit = (event) => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
+
         setValidated(true);
     };
-  
+    const handleInput = (e) => {
+        console.log(modal)
+        setModal({ ...modal, [e.target.name]: e.target.value })
+
+    }
+
+
     return (
         <div>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">AddUser</button>
+            <Button variant="primary" onClick={handleShow}>
+                AddUser
+            </Button>
+
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Add Details</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                        <Row className="mb-3">
+                            <Form.Group as={Col} md="12" controlId="validationCustom01">
+                                <Form.Label>First name</Form.Label>
+                                <Form.Control required type="text" placeholder="First name" value={modal.first_name} onChange={handleInput} name="first_name" />
+                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group as={Col} md="12" controlId="validationCustom02">
+                                <Form.Label>Last name</Form.Label>
+                                <Form.Control required type="text" placeholder="Last name" value={modal.last_name} onChange={handleInput} name="last_name" />
+                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group as={Col} md="12" controlId="validationCustom02">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control required type="text" placeholder="Email" value={modal.email} onChange={handleInput} name="email" />
+                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                            </Form.Group>
+                        </Row>
+                        <Button variant='primary' type="submit">Submit</Button>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>Close </Button>
 
 
-
-
-            {/* <!-- The Modal --> */}
-            <div class="modal" id="myModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-
-                        {/* <!-- Modal Header --> */}
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add New User</h4>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-
-                        {/* <!-- Modal body --> */}
-                        <div class="modal-body">
-
-                            <Form noValidate validated={validated} onSubmit={submit} >
-                                <Form.Group as={Col} md="12" controlId="validationCustom01">
-                                    <Form.Label>First name</Form.Label>
-                                    <Form.Control required type="text" name="data.firstName" value={data.firstName} onChange={handleInput} placeholder="First name" />
-                                </Form.Group>
-
-                                <Form.Group as={Col} md="12" controlId="validationCustom02">
-                                    <Form.Label>Last name</Form.Label>
-                                    <Form.Control required type="text" name="lastName" value={data.lastName} onChange={handleInput} placeholder="Last name" />
-                                </Form.Group>
-
-                                <Form.Group as={Col} md="12" controlId="validationCustomUsername">
-                                    <Form.Label>Email</Form.Label>
-                                    <Form.Control type="text" name="email" value={data.email} onChange={handleInput} placeholder="Enter Email" aria-describedby="inputGroupPrepend" required />
-                                </Form.Group>
-
-                                {
-                                    !error.profile ?
-                                        <Form.Group className="mb-3" >
-                                            <Form.Control type="file" name='profile' value={data.profile} placeholder="Enter Profile" onChange={handleInput} Add ProfilePicture />
-                                        </Form.Group>
-                                        :
-                                        <Form.Group className="mb-3" >
-                                            <Form.Control type="file" className="border border-danger" name='profile' value={data.profile} placeholder="Enter Profile" onChange={handleInput} />
-                                        </Form.Group>
-                                }
-
-                                {
-                                    error.email &&
-                                    <span style={{ color: "red" }}>{error.email}</span>
-                                }
-                            </Form>
-                        </div>
-
-                        {/* <!-- Modal footer --> */}
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" onClick={add}>Submit</button>
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <Button variant="info" onClick={handleAdd}>Save</Button>
+                </Modal.Footer>
+            </Modal>
         </div>
-    )
+    );
 }
 export default AddUser;

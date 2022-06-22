@@ -1,11 +1,20 @@
-.img{
+/* .img{
     border-radius: 30px;
     width:70px;
-}
+} */
 body{
-    width:50%;
-    /* margin-left:150px; */
+    width:70%;
+    margin-left:150px;
 }
 .table{
     margin-left:250px;
+}
+
+body{ 
+   margin:130px;
+   margin-top:0px;
+}
+.rounded{
+    border-radius: 10px;
+  
 }
